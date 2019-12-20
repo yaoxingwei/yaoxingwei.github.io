@@ -17,6 +17,8 @@ tags:
 	sudo apt install samba
 
 ## 4. edit samba config file for win share
+config file path: /etc/samba/smb.conf
+
 	[share]
 	comment = t610 samba share
 	path = /home/yxw/share
@@ -34,7 +36,7 @@ tags:
 	unix charset = UTF-8
 	dos charset = UTF-8
     
-> Note: access samba path in windows: \\192.168.xxx.xxx\share
+> Note: access samba path in windows: \\\192.168.xxx.xxx\share
     
  ## 5. set nfs for linux share
 	sudo apt-get install nfs-kernel-server
