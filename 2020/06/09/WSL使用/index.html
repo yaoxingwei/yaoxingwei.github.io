@@ -94,17 +94,17 @@
 
 
 
-  <meta name="description" content="1. 本地上传git init git add XXX //添加本地文件到仓库         git commit -m &amp;quot;blog源文件&amp;quot; //添加commit git branch hexo //添加本地仓库分支hexo git remote add origin &amp;lt;server&amp;gt;    // 添加远程仓库 git push origin hexo //将本地">
+  <meta name="description" content="常用命令打开wsl linux目录： win+R \\wsl$Create list of alternatives for python $ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1 $ sudo update-alternatives --install /usr/bin/pyt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多用户编辑hexo">
-<meta property="og:url" content="https://yaoxingwei.github.io/2019/07/12/多用户编辑hexo/index.html">
+<meta property="og:title" content="Linux使用">
+<meta property="og:url" content="https://yaoxingwei.github.io/2020/06/09/WSL使用/index.html">
 <meta property="og:site_name" content="42 is everything">
-<meta property="og:description" content="1. 本地上传git init git add XXX //添加本地文件到仓库         git commit -m &amp;quot;blog源文件&amp;quot; //添加commit git branch hexo //添加本地仓库分支hexo git remote add origin &amp;lt;server&amp;gt;    // 添加远程仓库 git push origin hexo //将本地">
+<meta property="og:description" content="常用命令打开wsl linux目录： win+R \\wsl$Create list of alternatives for python $ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1 $ sudo update-alternatives --install /usr/bin/pyt">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-06-08T15:49:11.450Z">
+<meta property="og:updated_time" content="2020-06-08T16:10:30.780Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="多用户编辑hexo">
-<meta name="twitter:description" content="1. 本地上传git init git add XXX //添加本地文件到仓库         git commit -m &amp;quot;blog源文件&amp;quot; //添加commit git branch hexo //添加本地仓库分支hexo git remote add origin &amp;lt;server&amp;gt;    // 添加远程仓库 git push origin hexo //将本地">
+<meta name="twitter:title" content="Linux使用">
+<meta name="twitter:description" content="常用命令打开wsl linux目录： win+R \\wsl$Create list of alternatives for python $ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1 $ sudo update-alternatives --install /usr/bin/pyt">
 
 
 
@@ -112,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="https://yaoxingwei.github.io/2019/07/12/多用户编辑hexo/">
+  <link rel="canonical" href="https://yaoxingwei.github.io/2020/06/09/WSL使用/">
 
 
 
@@ -122,7 +122,7 @@
   };
 </script>
 
-  <title>多用户编辑hexo | 42 is everything</title>
+  <title>Linux使用 | 42 is everything</title>
   
 
 
@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaoxingwei.github.io/2019/07/12/多用户编辑hexo/">
+    <link itemprop="mainEntityOfPage" href="https://yaoxingwei.github.io/2020/06/09/WSL使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yaoxingwei">
@@ -302,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">多用户编辑hexo
+          <h1 class="post-title" itemprop="name headline">Linux使用
 
               
             
@@ -328,23 +328,13 @@
                 
               
 
-              <time title="Created: 2019-07-12 00:33:29" itemprop="dateCreated datePublished" datetime="2019-07-12T00:33:29+08:00">2019-07-12</time>
+              <time title="Created: 2020-06-09 00:06:04 / Modified: 00:10:30" itemprop="dateCreated datePublished" datetime="2020-06-09T00:06:04+08:00">2020-06-09</time>
             </span>
           
 
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-06-08 23:49:11" itemprop="dateModified" datetime="2020-06-08T23:49:11+08:00">2020-06-08</time>
-              </span>
             
           
 
@@ -380,27 +370,13 @@
       
 
       
-        <h3 id="1-本地上传"><a href="#1-本地上传" class="headerlink" title="1. 本地上传"></a>1. 本地上传</h3><pre><code>git init
-git add XXX //添加本地文件到仓库        
-git commit -m &quot;blog源文件&quot; //添加commit
-git branch hexo //添加本地仓库分支hexo
-git remote add origin &lt;server&gt;    // 添加远程仓库
-git push origin hexo //将本地仓库的源文件推送到远程仓库hexo分支</code></pre><blockquote>
-<p>Note1: 不建议将配置文件传上去:<br>.DS_Store<br>Thumbs.db<br>db.json<br><em>.log<br>node_modules/<br>public/<br>.deploy</em>/<br>_config.yml</p>
-</blockquote>
-<blockquote>
-<p>Note2: 需要删除themes下面的 .git 文件夹。不然会冲突导致上传失败。</p>
-</blockquote>
-<h3 id="其他用户操作"><a href="#其他用户操作" class="headerlink" title="其他用户操作"></a>其他用户操作</h3><pre><code>git clone &lt;server&gt; hexo //&lt;server&gt; 是指在线仓库的地址
-cd hexo
-git pull origin master
-git checkout -b hexo origin/hexo
-sudo npm install --unsafe-perm --verbose -g hexo</code></pre><h3 id="同步操作"><a href="#同步操作" class="headerlink" title="同步操作"></a>同步操作</h3><pre><code>git pull origin hexo  //先pull完成本地与远端的融合
-hexo new post &quot; new blog name&quot;
-git add source
-git commit -m &quot;XX&quot;
-git push origin hexo
-hexo d -g  // TODO: need test</code></pre>
+        <h5 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h5><p>打开wsl linux目录：</p>
+<pre><code>win+R
+\\wsl$</code></pre><p>Create list of alternatives for python</p>
+<pre><code>$ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+$ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2</code></pre><p>Check the python list</p>
+<pre><code>$ update-alternatives --list python</code></pre><p>update alternative to select required python version</p>
+<pre><code>$ sudo update-alternatives --config python</code></pre>
       
     </div>
 
@@ -430,8 +406,8 @@ hexo d -g  // TODO: need test</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/11/NAS和aria2配置/" rel="next" title="NAS配置">
-                <i class="fa fa-chevron-left"></i> NAS配置
+              <a href="/2020/06/09/NVDLA学习/" rel="next" title="VP">
+                <i class="fa fa-chevron-left"></i> VP
               </a>
             
           </div>
@@ -439,10 +415,6 @@ hexo d -g  // TODO: need test</code></pre>
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/19/Linux开发/" rel="prev" title="Linux开发 - debug线程cpu占用过高">
-                Linux开发 - debug线程cpu占用过高 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -553,7 +525,7 @@ hexo d -g  // TODO: need test</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-本地上传"><span class="nav-number">1.</span> <span class="nav-text">1. 本地上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他用户操作"><span class="nav-number">2.</span> <span class="nav-text">其他用户操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步操作"><span class="nav-number">3.</span> <span class="nav-text">同步操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#常用命令"><span class="nav-number">1.</span> <span class="nav-text">常用命令</span></a></li></ol></div>
             
 
           </div>

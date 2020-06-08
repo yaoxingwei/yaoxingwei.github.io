@@ -282,6 +282,335 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaoxingwei.github.io/2020/06/09/WSL使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaoxingwei">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="42 is everything">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/06/09/WSL使用/" class="post-title-link" itemprop="url">Linux使用</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-06-09 00:06:04 / Modified: 00:10:30" itemprop="dateCreated datePublished" datetime="2020-06-09T00:06:04+08:00">2020-06-09</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h5><p>打开wsl linux目录：</p>
+<pre><code>win+R
+\\wsl$</code></pre><p>Create list of alternatives for python</p>
+<pre><code>$ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+$ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2</code></pre><p>Check the python list</p>
+<pre><code>$ update-alternatives --list python</code></pre><p>update alternative to select required python version</p>
+<pre><code>$ sudo update-alternatives --config python</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaoxingwei.github.io/2020/06/09/NVDLA学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaoxingwei">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="42 is everything">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/06/09/NVDLA学习/" class="post-title-link" itemprop="url">VP</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-06-09 00:05:00 / Modified: 00:15:23" itemprop="dateCreated datePublished" datetime="2020-06-09T00:05:00+08:00">2020-06-09</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="VP-build"><a href="#VP-build" class="headerlink" title="VP build"></a>VP build</h4><ol>
+<li><p>前期参考：<a href="http://nvdla.org/vp.html" target="_blank" rel="noopener">http://nvdla.org/vp.html</a></p>
+</li>
+<li><p>环境：</p>
+<pre><code>a. default-jdk
+b. Perl
+c. Gcc-5/g++-5
+d. Python2.7.x
+e. Systemc-2.3.0</code></pre></li>
+<li><p>编译hw：</p>
+<pre><code>a. Change to branch nvdlav1
+b. 其他按官网</code></pre></li>
+<li><p>编译vp：</p>
+<pre><code>a. error: ‘template&lt;class&gt; class std::auto_ptr’ is deprecated [-Werror=deprecated-declarations]
+    i. Edit 根目录 CMakeLists.txt and remove &quot;-Werror&quot;，rerun cmake
+    ii. Edit fpga/aws-fpga/cosim_sc_wrapper CMakeLists.txt and remove &quot;-Werror&quot;
+b. error: static declaration of ‘memfd_create’ follows non-static declaration
+    i. $ cd libs/qbox
+    ii. Edit configure:
+        1) Change memfd.h -&gt; mman.h
+    iii. Edit util/memfd.c
+        //#ifdef CONFIG_MEMFD
+        //#include &lt;sys/memfd.h&gt;
+        //#elif defined CONFIG_LINUX
+        #if defined CONFIG_LINUX &amp;&amp; !defined CONFIG_MEMFD
+c. Error: DTC(libfdt) version &gt;= 1.4.2 no present…
+    i. $ sudo apt install libfdt-dev
+d. Greenscript.cpp:xxx: error: &apos;PyString_FromString&apos; was not declared in this scope
+    i. Edit CMakeCache.txt and change python3.x to python2</code></pre></li>
+<li><p>Linux kernel 编译</p>
+<p>按照官网来</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yaoxingwei.github.io/2020/06/08/Android源码下载及编译/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1744,164 +2073,13 @@ _   底线
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaoxingwei.github.io/2019/07/10/The-road-to-the-kernel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yaoxingwei">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="42 is everything">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/10/The-road-to-the-kernel/" class="post-title-link" itemprop="url">The road to the kernel</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-07-10 15:12:59" itemprop="dateCreated datePublished" datetime="2019-07-10T15:12:59+08:00">2019-07-10</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-06-08 23:31:12" itemprop="dateModified" datetime="2020-06-08T23:31:12+08:00">2020-06-08</time>
-              </span>
-            
-          
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1941,7 +2119,7 @@ _   底线
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
