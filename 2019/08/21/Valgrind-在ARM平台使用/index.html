@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Valgrind usage下载valgrind源码源码地址 交叉编译./autogen.sh ./configure --host=arm-linux-gnueabihf --prefix=/xxx/valgrind-3.15.0/out/ CC=arm-linux-gnueabihf-gcc make make installcopy可执行文件到arm平台scp out/bin/valgrin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存泄漏debug - Valgrind&#x2F;mtrace 在ARM平台使用">
+<meta property="og:url" content="https://yaoxingwei.github.io/2019/08/21/Valgrind-在ARM平台使用/index.html">
+<meta property="og:site_name" content="42 is everything">
+<meta property="og:description" content="Valgrind usage下载valgrind源码源码地址 交叉编译./autogen.sh ./configure --host=arm-linux-gnueabihf --prefix=/xxx/valgrind-3.15.0/out/ CC=arm-linux-gnueabihf-gcc make make installcopy可执行文件到arm平台scp out/bin/valgrin">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-06-05T13:09:01.240Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内存泄漏debug - Valgrind&#x2F;mtrace 在ARM平台使用">
+<meta name="twitter:description" content="Valgrind usage下载valgrind源码源码地址 交叉编译./autogen.sh ./configure --host=arm-linux-gnueabihf --prefix=/xxx/valgrind-3.15.0/out/ CC=arm-linux-gnueabihf-gcc make make installcopy可执行文件到arm平台scp out/bin/valgrin">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://yaoxingwei.github.io/2019/08/21/Valgrind-在ARM平台使用/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>内存泄漏debug - Valgrind/mtrace 在ARM平台使用 | 42 is everything</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">42 is everything</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaoxingwei.github.io/2019/08/21/Valgrind-在ARM平台使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaoxingwei">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="42 is everything">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">内存泄漏debug - Valgrind/mtrace 在ARM平台使用
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-21 17:14:58" itemprop="dateCreated datePublished" datetime="2019-08-21T17:14:58+08:00">2019-08-21</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-06-05 21:09:01" itemprop="dateModified" datetime="2020-06-05T21:09:01+08:00">2020-06-05</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Valgrind-usage"><a href="#Valgrind-usage" class="headerlink" title="Valgrind usage"></a>Valgrind usage</h1><h4 id="下载valgrind源码"><a href="#下载valgrind源码" class="headerlink" title="下载valgrind源码"></a>下载valgrind源码</h4><p><a href="http://www.valgrind.org/downloads/" target="_blank" rel="noopener">源码地址</a></p>
+<h4 id="交叉编译"><a href="#交叉编译" class="headerlink" title="交叉编译"></a>交叉编译</h4><pre><code>./autogen.sh
+./configure --host=arm-linux-gnueabihf --prefix=/xxx/valgrind-3.15.0/out/ CC=arm-linux-gnueabihf-gcc
+make
+make install</code></pre><h4 id="copy可执行文件到arm平台"><a href="#copy可执行文件到arm平台" class="headerlink" title="copy可执行文件到arm平台"></a>copy可执行文件到arm平台</h4><pre><code>scp out/bin/valgrind xxx.xxx.xxx.xxx:/home/xxx
+scp out/lib/valgrind/memcheck-arm-linux xxx.xxx.xxx.xxx:/home/xxx/lib</code></pre><blockquote>
+<p>note: 本文只使用memcheck工具，如果需要其他工具，需要copy相应的lib库的文件到arm平台</p>
+</blockquote>
+<h4 id="配置运行环境"><a href="#配置运行环境" class="headerlink" title="配置运行环境"></a>配置运行环境</h4><pre><code>export VALGRIND_LIB=/home/xxx/lib</code></pre><h4 id="运行valgrind"><a href="#运行valgrind" class="headerlink" title="运行valgrind"></a>运行valgrind</h4><pre><code>./valgrind --leak-check=full --log-file=/home/xxx/log ./xxx(Linux program)</code></pre><blockquote>
+<p>note: valgrind需要libc支持debug info。如果当前文件系统libc不支持。可以copy交叉工具链的带debug info的libc到当前arm平台。然后设置LD_LIBRARY_PATH。</p>
+</blockquote>
+<h1 id="mtrace-usage"><a href="#mtrace-usage" class="headerlink" title="mtrace usage"></a>mtrace usage</h1><p>代码格式：</p>
+<pre><code>#include &lt;mcheck.h&gt;
+void mtrace(void);
+// trace code ...
+// ...
+// ...
+void muntrace(void);</code></pre><p>设置输出log地址：</p>
+<pre><code>$ export MALLOC_TRACE=/home/xxx/xxx/trace.log</code></pre><p>输入log格式转换：</p>
+<pre><code>mtrace xxx&lt;program&gt; trace.log &gt; trace_trans.log</code></pre><h1 id="内存泄漏tips"><a href="#内存泄漏tips" class="headerlink" title="内存泄漏tips"></a>内存泄漏tips</h1><ol>
+<li>使用valgrind可以比较方便查看内存使用情况</li>
+<li>mtrace输出的memory地址，结合出错memory地址，可以发现是否是内存越界。如果是，多检查字符串操作。</li>
+<li>alloc/free函数重新封装，可以通过code打印memory使用情况，类似mtrace。</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/19/Linux开发/" rel="next" title="Linux开发 - debug线程cpu占用过高">
+                <i class="fa fa-chevron-left"></i> Linux开发 - debug线程cpu占用过高
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/05/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaoxingwei</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Valgrind-usage"><span class="nav-number">1.</span> <span class="nav-text">Valgrind usage</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载valgrind源码"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">下载valgrind源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交叉编译"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">交叉编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#copy可执行文件到arm平台"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">copy可执行文件到arm平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置运行环境"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">配置运行环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行valgrind"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">运行valgrind</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#mtrace-usage"><span class="nav-number">2.</span> <span class="nav-text">mtrace usage</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存泄漏tips"><span class="nav-number">3.</span> <span class="nav-text">内存泄漏tips</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaoxingwei</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
