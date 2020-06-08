@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="42 is everything">
 <meta property="og:description" content="1. 本地上传git init git add XXX //添加本地文件到仓库         git commit -m &amp;quot;blog源文件&amp;quot; //添加commit git branch hexo //添加本地仓库分支hexo git remote add origin &amp;lt;server&amp;gt;    // 添加远程仓库 git push origin hexo //将本地">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-06-05T13:09:01.240Z">
+<meta property="og:updated_time" content="2020-06-08T15:49:11.450Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多用户编辑hexo">
 <meta name="twitter:description" content="1. 本地上传git init git add XXX //添加本地文件到仓库         git commit -m &amp;quot;blog源文件&amp;quot; //添加commit git branch hexo //添加本地仓库分支hexo git remote add origin &amp;lt;server&amp;gt;    // 添加远程仓库 git push origin hexo //将本地">
@@ -343,7 +343,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-05 21:09:01" itemprop="dateModified" datetime="2020-06-05T21:09:01+08:00">2020-06-05</time>
+                <time title="Modified: 2020-06-08 23:49:11" itemprop="dateModified" datetime="2020-06-08T23:49:11+08:00">2020-06-08</time>
               </span>
             
           
@@ -392,8 +392,10 @@ git push origin hexo //将本地仓库的源文件推送到远程仓库hexo分�
 <p>Note2: 需要删除themes下面的 .git 文件夹。不然会冲突导致上传失败。</p>
 </blockquote>
 <h3 id="其他用户操作"><a href="#其他用户操作" class="headerlink" title="其他用户操作"></a>其他用户操作</h3><pre><code>git clone &lt;server&gt; hexo //&lt;server&gt; 是指在线仓库的地址
-cd hexo 
-npm install</code></pre><h3 id="同步操作"><a href="#同步操作" class="headerlink" title="同步操作"></a>同步操作</h3><pre><code>git pull origin hexo  //先pull完成本地与远端的融合
+cd hexo
+git pull origin master
+git checkout -b hexo origin/hexo
+sudo npm install --unsafe-perm --verbose -g hexo</code></pre><h3 id="同步操作"><a href="#同步操作" class="headerlink" title="同步操作"></a>同步操作</h3><pre><code>git pull origin hexo  //先pull完成本地与远端的融合
 hexo new post &quot; new blog name&quot;
 git add source
 git commit -m &quot;XX&quot;
