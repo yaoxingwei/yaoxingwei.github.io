@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="42 is everything">
 <meta property="og:description" content="1. Ubuntu环境设置1. git configsudo apt install git git config --global user.name &amp;quot;xxx&amp;quot; git config --global user.email &amp;quot;xxx@xxx.com&amp;quot;2. generate ssh keyssh-keygen -t rsa -C &amp;quot;xxx@xxx">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-06-08T15:31:12.150Z">
+<meta property="og:updated_time" content="2020-06-09T16:47:03.300Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NAS配置">
 <meta name="twitter:description" content="1. Ubuntu环境设置1. git configsudo apt install git git config --global user.name &amp;quot;xxx&amp;quot; git config --global user.email &amp;quot;xxx@xxx.com&amp;quot;2. generate ssh keyssh-keygen -t rsa -C &amp;quot;xxx@xxx">
@@ -343,7 +343,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-08 23:31:12" itemprop="dateModified" datetime="2020-06-08T23:31:12+08:00">2020-06-08</time>
+                <time title="Modified: 2020-06-10 00:47:03" itemprop="dateModified" datetime="2020-06-10T00:47:03+08:00">2020-06-10</time>
               </span>
             
           
@@ -407,7 +407,14 @@ sudo vi /etc/exports
 sudo /etc/init.d/rpcbind restart
 sudo /etc/init.d/nfs-kernel-server restart
 sudo exportfs -r
-sudo mount -t nfs localhost:/home/share/nfsroot  /mnt    # test mount and access method</code></pre>
+sudo mount -t nfs localhost:/home/share/nfsroot  /mnt    # test mount and access method</code></pre><h2 id="6-transmission"><a href="#6-transmission" class="headerlink" title="6. transmission"></a>6. transmission</h2><p>安装</p>
+<pre><code>sudo apt install transmission-daemon</code></pre><p>配置</p>
+<pre><code>sudo vi /etc/transmission-daemon/settings.json</code></pre>   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"rpc-authentication-required"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"rpc-bind-address"</span>: <span class="string">"0.0.0.0"</span>,</span><br><span class="line"><span class="string">"rpc-enabled"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"rpc-host-whitelist"</span>: <span class="string">"*"</span>,</span><br><span class="line"><span class="string">"rpc-host-whitelist-enabled"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"rpc-password"</span>: <span class="string">"xxxxxx"</span>,</span><br><span class="line"><span class="string">"rpc-port"</span>: <span class="number">9091</span>,</span><br><span class="line"><span class="string">"rpc-url"</span>: <span class="string">"/transmission/"</span>,</span><br><span class="line"><span class="string">"rpc-username"</span>: <span class="string">"yxw"</span>,</span><br><span class="line"><span class="string">"rpc-whitelist"</span>: <span class="string">"*"</span>,</span><br><span class="line"><span class="string">"rpc-whitelist-enabled"</span>: <span class="literal">true</span>,</span><br></pre></td></tr></table></figure>
+
+<p>运行</p>
+<pre><code>service transmission-daemon start</code></pre><p>访问</p>
+<pre><code>http://&lt;ip&gt;:9091/transmission/web/</code></pre><p>下载权限问题</p>
+<pre><code>sudo chmod -R 777 downloads    //修改下载文件夹权限</code></pre>
       
     </div>
 
@@ -560,7 +567,7 @@ sudo mount -t nfs localhost:/home/share/nfsroot  /mnt    # test mount and access
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Ubuntu环境设置"><span class="nav-number">1.</span> <span class="nav-text">1. Ubuntu环境设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-git-config"><span class="nav-number">1.1.</span> <span class="nav-text">1. git config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-generate-ssh-key"><span class="nav-number">1.2.</span> <span class="nav-text">2. generate ssh key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-install-samba"><span class="nav-number">1.3.</span> <span class="nav-text">3. install samba</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-edit-samba-config-file-for-win-share"><span class="nav-number">1.4.</span> <span class="nav-text">4. edit samba config file for win share</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-set-nfs-for-linux-share"><span class="nav-number">1.5.</span> <span class="nav-text">5. set nfs for linux share</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Ubuntu环境设置"><span class="nav-number">1.</span> <span class="nav-text">1. Ubuntu环境设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-git-config"><span class="nav-number">1.1.</span> <span class="nav-text">1. git config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-generate-ssh-key"><span class="nav-number">1.2.</span> <span class="nav-text">2. generate ssh key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-install-samba"><span class="nav-number">1.3.</span> <span class="nav-text">3. install samba</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-edit-samba-config-file-for-win-share"><span class="nav-number">1.4.</span> <span class="nav-text">4. edit samba config file for win share</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-set-nfs-for-linux-share"><span class="nav-number">1.5.</span> <span class="nav-text">5. set nfs for linux share</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-transmission"><span class="nav-number">1.6.</span> <span class="nav-text">6. transmission</span></a></li></ol></li></ol></div>
             
 
           </div>
