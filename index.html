@@ -1751,7 +1751,7 @@ hexo d -g  // TODO: need test</code></pre>
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-10 21:26:21" itemprop="dateModified" datetime="2020-06-10T21:26:21+08:00">2020-06-10</time>
+                <time title="Modified: 2020-06-10 22:29:03" itemprop="dateModified" datetime="2020-06-10T22:29:03+08:00">2020-06-10</time>
               </span>
             
           
@@ -1831,7 +1831,14 @@ sudo mount -t nfs localhost:/home/share/nfsroot  /mnt    # test mount and access
 
 <p>重启服务</p>
 <pre><code>sudo systemctl daemon-reload
-sudo systemctl start transmission-daemon.service</code></pre>
+sudo systemctl start transmission-daemon.service</code></pre><h2 id="7-FTP-server"><a href="#7-FTP-server" class="headerlink" title="7. FTP server"></a>7. FTP server</h2><p>安装</p>
+<pre><code>sudo apt-get install vsftpd</code></pre><p>修改配置文件</p>
+<pre><code>sudo vi /etc/vsftpd.conf</code></pre><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">listen=YES</span><br><span class="line">#listen_ipv6=NO</span><br><span class="line">anonymous_enable=NO</span><br><span class="line">local_enable=YES</span><br><span class="line">write_enable=YES</span><br><span class="line">local_umask=<span class="number">077</span></span><br><span class="line">#anon_upload_enable=YES</span><br><span class="line">#anon_mkdir_write_enable=YES</span><br><span class="line">dirmessage_enable=YES</span><br><span class="line">use_localtime=YES</span><br><span class="line">xferlog_enable=YES</span><br><span class="line">connect_from_port_20=YES</span><br><span class="line">#chown_uploads=YES</span><br><span class="line">#chown_username=whoever</span><br><span class="line">#xferlog_file=/var/<span class="built_in">log</span>/vsftpd.<span class="built_in">log</span></span><br><span class="line">#xferlog_std_format=YES</span><br><span class="line">#idle_session_timeout=<span class="number">600</span></span><br><span class="line">#data_connection_timeout=<span class="number">120</span></span><br><span class="line">#nopriv_user=ftpsecure</span><br><span class="line">#async_abor_enable=YES</span><br><span class="line">#ascii_upload_enable=YES</span><br><span class="line">#ascii_download_enable=YES</span><br><span class="line">#ftpd_banner=Welcome to blah FTP service.</span><br><span class="line">#deny_email_enable=YES</span><br><span class="line">#banned_email_file=/etc/vsftpd.banned_emails</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">chroot_list_enable=YES</span><br><span class="line">chroot_list_file=/etc/vsftpd.chroot_list</span><br><span class="line">#ls_recurse_enable=YES</span><br><span class="line">secure_chroot_dir=/var/run/vsftpd/empty</span><br><span class="line">pam_service_name=ftp</span><br><span class="line">rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem</span><br><span class="line">rsa_private_key_file=/etc/ssl/<span class="keyword">private</span>/ssl-cert-snakeoil.key</span><br><span class="line">ssl_enable=NO</span><br><span class="line">utf8_filesystem=YES</span><br></pre></td></tr></table></figure>
+
+<p>添加用户list文件</p>
+<pre><code>sudo /etc/vsftpd.chroot_list
+username</code></pre><p>运行</p>
+<pre><code>systemctl start vsftpd    //service vsftpd start</code></pre>
           
         
       
